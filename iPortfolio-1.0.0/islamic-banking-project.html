@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Islamic Banking Analytics Platform - Ilhomjon Imyaminov</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --islamic-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      --dark-bg: #0a0e27;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --accent-color: #00f2fe;
+      --islamic-color: #38ef7d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
+    }
+
+    .animated-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(17, 153, 142, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(56, 239, 125, 0.1) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(50px, -50px); }
+      66% { transform: translate(-50px, 50px); }
+    }
+
+    .navbar {
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px 0;
+    }
+
+    .navbar .back-btn {
+      color: var(--text-primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 25px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .back-btn:hover {
+      background: var(--islamic-gradient);
+      transform: translateX(-5px);
+    }
+
+    .hero-section {
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-section h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: var(--islamic-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      padding: 15px 40px;
+      background: rgba(56, 239, 125, 0.2);
+      border: 2px solid rgba(56, 239, 125, 0.4);
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--islamic-color);
+      margin-bottom: 30px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(56, 239, 125, 0.7); }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(56, 239, 125, 0); }
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 30px;
+      background: rgba(17, 153, 142, 0.2);
+      border: 1px solid rgba(17, 153, 142, 0.4);
+      border-radius: 50px;
+      margin: 20px 5px;
+      font-weight: 600;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(17, 153, 142, 0.3);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 30px;
+      color: var(--islamic-color);
+    }
+
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .photo-item {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .photo-item:hover {
+      transform: scale(1.05);
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 15px;
+      background: linear-gradient(135deg, rgba(17, 153, 142, 0.1), rgba(56, 239, 125, 0.1));
+    }
+
+    .photo-placeholder i {
+      font-size: 48px;
+      color: var(--islamic-color);
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(17, 153, 142, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      background: rgba(17, 153, 142, 0.1);
+      transform: translateX(10px);
+      border-color: rgba(56, 239, 125, 0.4);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--islamic-gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 30px;
+      background: var(--card-bg);
+      border: 1px solid rgba(17, 153, 142, 0.2);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(17, 153, 142, 0.3);
+      border-color: rgba(56, 239, 125, 0.4);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--islamic-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(17, 153, 142, 0.2);
+      border-radius: 20px;
+      margin: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--islamic-color);
+    }
+
+    .timeline-event {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      padding-left: 40px;
+      position: relative;
+    }
+
+    .timeline-event::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 30px;
+      bottom: -30px;
+      width: 2px;
+      background: var(--islamic-gradient);
+    }
+
+    .timeline-event:last-child::before {
+      display: none;
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--islamic-gradient);
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 5px;
+      box-shadow: 0 0 20px rgba(56, 239, 125, 0.6);
+    }
+
+    .achievement-highlight {
+      background: rgba(17, 153, 142, 0.1);
+      border-left: 4px solid var(--islamic-color);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .mockup-container {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(17, 153, 142, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .screenshot-item {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(17, 153, 142, 0.3);
+      transition: all 0.3s ease;
+      aspect-ratio: 16/10;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(56, 239, 125, 0.6);
+      box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="animated-bg"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html#projects" class="back-btn">
+        <i class="bi bi-arrow-left"></i>
+        Back to Portfolio
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div data-aos="fade-up">
+        <div class="coming-soon-badge">
+          <i class="bi bi-clock-history"></i> COMING SOON
+        </div>
+        <h1>Islamic Banking Analytics Platform</h1>
+        <p style="font-size: 20px; color: var(--text-secondary); max-width: 800px; margin: 20px auto;">
+          Revolutionary Streamlit-based analytics platform for Shariah-compliant financial analysis and Islamic banking operations
+        </p>
+        <div class="event-badges">
+          <span class="event-badge">
+            <i class="bi bi-calendar-check"></i>
+            Expected Launch: Q2 2025
+          </span>
+          <span class="event-badge">
+            <i class="bi bi-code-square"></i>
+            Python + Streamlit
+          </span>
+          <span class="event-badge">
+            <i class="bi bi-graph-up-arrow"></i>
+            Data Analytics
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container" style="padding-bottom: 80px;">
+    
+    <!-- Project Overview -->
+    <div class="glass-card" data-aos="fade-up">
+      <h2 class="section-title">🕌 Project Vision</h2>
+      <p style="color: var(--text-secondary); line-height: 1.8; font-size: 18px;">
+        The Islamic Banking Analytics Platform is an innovative, comprehensive solution designed to bridge the gap between modern data science and Islamic finance principles. This cutting-edge platform will provide financial institutions, investors, and analysts with powerful tools to evaluate, monitor, and optimize Shariah-compliant investments and banking operations.
+      </p>
+      
+      <div class="achievement-highlight">
+        <h4 style="color: var(--islamic-color); margin-bottom: 15px;">
+          <i class="bi bi-star"></i> Why This Project Matters
+        </h4>
+        <ul style="color: var(--text-secondary); line-height: 2;">
+          <li>Islamic finance market is valued at <strong>$3+ trillion globally</strong></li>
+          <li>Growing demand for <strong>Shariah-compliant</strong> financial analysis tools</li>
+          <li>Need for <strong>transparent and ethical</strong> investment tracking</li>
+          <li>Integration of <strong>modern data science</strong> with Islamic finance principles</li>
+          <li>Democratizing access to <strong>professional-grade</strong> Islamic finance analytics</li>
+        </ul>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="stat-box">
+            <div class="stat-number">$3T+</div>
+            <p style="color: var(--text-secondary); margin-top: 10px;">Global Islamic Finance Market</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-box">
+            <div class="stat-number">15+</div>
+            <p style="color: var(--text-secondary); margin-top: 10px;">Core Features Planned</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-box">
+            <div class="stat-number">100%</div>
+            <p style="color: var(--text-secondary); margin-top: 10px;">Shariah Compliant</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Features -->
+    <div class="glass-card" data-aos="fade-up">
+      <h2 class="section-title">✨ Key Features</h2>
+      
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Shariah Compliance Screening</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Advanced screening engine to evaluate stocks, funds, and investments against Islamic finance principles. Real-time compliance monitoring with detailed reports on debt ratios, revenue sources, and business activities.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="bi bi-pie-chart"></i>
+            </div>
+            <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Portfolio Analytics</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Comprehensive portfolio tracking with Shariah-compliant performance metrics, risk assessment, and diversification analysis. Includes Zakat calculations and purification requirements.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="bi bi-calculator"></i>
+            </div>
+            <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Profit-Loss Sharing Calculator</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Interactive calculator for Mudarabah and Musharakah contracts. Compute profit distribution ratios, capital contributions, and returns based on Islamic partnership principles.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="bi bi-graph-up"></i>
+            </div>
+            <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Sukuk Performance Tracker</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Real-time tracking and analysis of Sukuk (Islamic bonds) performance. Compare yields, maturities, and risk profiles across different Sukuk structures (Ijarah, Murabaha, Wakalah).
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="bi bi-search"></i>
+            </div>
+            <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Halal Investment Screener</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Powerful screening tool to discover halal investment opportunities across global markets. Filter by industry, geography, market cap, and Shariah compliance scores.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="bi bi-shield-exclamation"></i>
+            </div>
+            <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Risk Management Dashboard</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Islamic finance-aligned risk assessment tools. Evaluate Gharar (uncertainty), Maysir (gambling), and Riba (interest) exposure in investment portfolios.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Architecture -->
+    <div class="glass-card" data-aos="fade-up">
+      <h2 class="section-title">🔧 Technical Architecture</h2>
+      
+      <div class="mockup-container">
+        <h4 style="color: var(--islamic-color); margin-bottom: 20px;">Technology Stack</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <h5 style="color: var(--text-primary); margin-bottom: 15px;">Frontend & Visualization</h5>
+            <div style="margin-bottom: 20px;">
+              <span class="tag">Streamlit</span>
+              <span class="tag">Plotly</span>
+              <span class="tag">Altair</span>
+              <span class="tag">Matplotlib</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 style="color: var(--text-primary); margin-bottom: 15px;">Data Processing</h5>
+            <div style="margin-bottom: 20px;">
+              <span class="tag">Pandas</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">SQLAlchemy</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 style="color: var(--text-primary); margin-bottom: 15px;">Machine Learning</h5>
+            <div style="margin-bottom: 20px;">
+              <span class="tag">Scikit-learn</span>
+              <span class="tag">Prophet</span>
+              <span class="tag">statsmodels</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 style="color: var(--text-primary); margin-bottom: 15px;">Data Sources</h5>
+            <div style="margin-bottom: 20px;">
+              <span class="tag">yfinance</span>
+              <span class="tag">Alpha Vantage</span>
+              <span class="tag">APIs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="color: var(--islamic-color); margin: 30px 0 20px;">Core Modules</h4>
+      <ul style="color: var(--text-secondary); line-height: 2.2; list-style: none; padding: 0;">
+        <li><i class="bi bi-check-circle" style="color: var(--islamic-color); margin-right: 10px;"></i> <strong>Screening Engine:</strong> Automated Shariah compliance verification</li>
+        <li><i class="bi bi-check-circle" style="color: var(--islamic-color); margin-right: 10px;"></i> <strong>Portfolio Manager:</strong> Track and analyze Islamic investments</li>
+        <li><i class="bi bi-check-circle" style="color: var(--islamic-color); margin-right: 10px;"></i> <strong>Analytics Dashboard:</strong> Real-time metrics and visualizations</li>
+        <li><i class="bi bi-check-circle" style="color: var(--islamic-color); margin-right: 10px;"></i> <strong>Calculation Tools:</strong> PLS ratios, Zakat, purification</li>
+        <li><i class="bi bi-check-circle" style="color: var(--islamic-color); margin-right: 10px;"></i> <strong>Market Data Integration:</strong> Live price feeds and updates</li>
+        <li><i class="bi bi-check-circle" style="color: var(--islamic-color); margin-right: 10px;"></i> <strong>Reporting System:</strong> Generate detailed compliance reports</li>
+      </ul>
+    </div>
+
+    <!-- Development Roadmap -->
+    <div class="glass-card" data-aos="fade-up">
+      <h2 class="section-title">🗓️ Development Roadmap</h2>
+      
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div>
+          <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Phase 1: Research & Planning (Q4 2024)</h4>
+          <p style="color: var(--text-secondary); line-height: 1.8;">
+            ✅ Completed Islamic finance principles research<br>
+            ✅ Market analysis and competitor review<br>
+            ✅ Technology stack selection<br>
+            ✅ Feature specification and architecture design
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div>
+          <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Phase 2: Core Development (Q1 2025)</h4>
+          <p style="color: var(--text-secondary); line-height: 1.8;">
+            🔄 Building Shariah screening engine<br>
+            🔄 Developing portfolio tracking system<br>
+            🔄 Creating data pipeline and API integrations<br>
+            🔄 Designing user interface and dashboards
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div>
+          <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Phase 3: Testing & Refinement (Q2 2025)</h4>
+          <p style="color: var(--text-secondary); line-height: 1.8;">
+            ⏳ Beta testing with Islamic finance experts<br>
+            ⏳ Shariah compliance verification<br>
+            ⏳ Performance optimization<br>
+            ⏳ User feedback implementation
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div>
+          <h4 style="color: var(--islamic-color); margin-bottom: 10px;">Phase 4: Launch (Q2 2025)</h4>
+          <p style="color: var(--text-secondary); line-height: 1.8;">
+            ⏳ Public beta release<br>
+            ⏳ Documentation and tutorials<br>
+            ⏳ Community building<br>
+            ⏳ Feature expansion based on feedback
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI Mockups & Screenshots -->
+    <!-- <div class="glass-card" data-aos="fade-up">
+      <h2 class="section-title">🎨 Design Mockups & Screenshots</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 30px;">
+        Preliminary design concepts and interface mockups for the platform
+      </p>
+      
+      <div class="screenshot-grid">
+        <div class="screenshot-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary); font-size: 14px;">Dashboard Overview</span>
+          </div>
+        </div>
+        
+        <div class="screenshot-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary); font-size: 14px;">Portfolio Tracker</span>
+          </div>
+        </div>
+        
+        <div class="screenshot-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary); font-size: 14px;">Screening Tool</span>
+          </div>
+        </div>
+        
+        <div class="screenshot-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary); font-size: 14px;">Sukuk Analytics</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="color: var(--islamic-color); margin: 40px 0 20px; font-size: 24px;">Development Progress Photos</h3>
+      
+      <div class="photo-gallery">
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary);">Code Development</span>
+          </div>
+        </div>
+        
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary);">Data Pipeline Testing</span>
+          </div>
+        </div>
+        
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary);">UI Design Process</span>
+          </div>
+        </div>
+        
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary);">Team Collaboration</span>
+          </div>
+        </div>
+        
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary);">Research & Planning</span>
+          </div>
+        </div>
+        
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <i class="bi bi-image"></i>
+            <span style="color: var(--text-secondary);">Feature Testing</span>
+          </div>
+        </div>
+      </div>
+      
+      <p style="color: rgba(255, 255, 255, 0.4); font-size: 14px; text-align: center; margin-top: 20px;">
+        <i class="bi bi-info-circle"></i> Screenshots and photos will be added as development progresses
+      </p>
+    </div> -->
+
+    <!-- Use Cases -->
+    <div class="glass-card" data-aos="fade-up">
+      <h2 class="section-title">💼 Target Users & Use Cases</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <h4 style="color: var(--islamic-color); margin-bottom: 15px;">Who Will Benefit</h4>
+          <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Islamic banking institutions</li>
+            <li>Shariah-compliant fund managers</li>
+            <li>Individual Muslim investors</li>
+            <li>Financial advisors and consultants</li>
+            <li>Academic researchers in Islamic finance</li>
+            <li>Fintech companies in MENA region</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h4 style="color: var(--islamic-color); margin-bottom: 15px;">Key Use Cases</h4>
+          <ul style="color: var(--text-secondary); line-height: 2;">
+            <li>Screen stocks for Shariah compliance</li>
+            <li>Monitor Islamic investment portfolios</li>
+            <li>Calculate Zakat on investments</li>
+            <li>Analyze Sukuk market trends</li>
+            <li>Compare Islamic vs conventional indices</li>
+            <li>Generate compliance audit reports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Get Involved -->
+    <div class="glass-card" data-aos="fade-up" style="text-align: center; background: rgba(17, 153, 142, 0.1); border: 2px solid rgba(56, 239, 125, 0.3);">
+      <h3 style="color: var(--islamic-color); margin-bottom: 20px;">
+        <i class="bi bi-megaphone"></i> Want to Stay Updated?
+      </h3>
+      <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 18px;">
+        This project is actively in development. Interested in early access, collaboration, or just want to follow the progress?
+      </p>
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="index.html#contact" class="btn" style="display: inline-block; padding: 15px 40px; background: var(--islamic-gradient); color: white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+          <i class="bi bi-envelope"></i> Get In Touch
+        </a>
+        <a href="index.html#projects" class="btn" style="display: inline-block; padding: 15px 40px; background: transparent; border: 2px solid var(--islamic-color); color: var(--islamic-color); border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+          <i class="bi bi-arrow-left"></i> Back to Projects
+        </a>
+      </div>
+      
+      <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <p style="color: rgba(255, 255, 255, 0.5); font-size: 14px;">
+          <i class="bi bi-clock"></i> Expected Launch: Q2 2025 | Currently in Phase 2 Development
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-out-cubic',
+      once: true,
+      mirror: false
+    });
+  </script>
+</body>
+</html>
